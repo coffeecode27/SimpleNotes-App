@@ -6,10 +6,11 @@ const methodOverride = require('method-override'); // manipulasi form method
 const connectDB = require('./server/config/db'); // DB File
 const session = require('express-session'); // For login session
 const passport = require('passport') // Metode autentikasi login
-const mongoStore = require('connect-mongo');
+const mongoStore = require('connect-mongo').default;
 
 const app = express();
 const port = 5000 || process.env.PORT; // bisa menggunakan nilai port dari dalam file .env
+
 
 app.use(session({
     secret:'keyboard cat',
