@@ -3,13 +3,25 @@ require('dotenv').config();
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts'); //  helper for Ejs template engine
 const methodOverride = require('method-override'); // manipulasi form method
-const connectDB = require('./server/config/db'); // DB File
+// const connectDB = require('./server/config/db'); // DB File
+const mongoose = require('mongoose');
 const session = require('express-session'); // For login session
 const passport = require('passport') // Metode autentikasi login
 const mongoStore = require('connect-mongo');
 const app = express();
-const port = 5000 || process.env.PORT; // bisa menggunakan nilai port dari dalam file .env
 
+const port = 3000 || process.env.PORT; // bisa menggunakan nilai port dari dalam file .env
+mongoose.set('strictQuery', false);
+
+/* DB CONFIG*/
+const connectDB = async () => {
+    try{
+        const connect = await mongoose.connect(process.env.MONGODB_URI);
+        console.log(`Database Connected: ${connect.connection.host}`);
+    }catch(error) {
+        console.log(error);
+    }
+}
 
 app.use(session({
     secret:'keyboard cat',
