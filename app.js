@@ -43,7 +43,12 @@ app.use(express.json()); // menangani data yang diterima dalam format JSON dari 
 app.use(methodOverride("_method")); // manipulasi form method
 
 /* CONNECT TO DATABASE */
-connectDB()
+connectDB().then(() => {
+    console.log("db connected");
+    app.listen(port, () => {
+         console.log(`App listening on port ${port}`);
+    })
+})
 
 /* STATIC FILES */
 app.use(express.static('public')); // konfigurasi untuk menggunakan folder "public" sebagai folder statis.
@@ -67,6 +72,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(port, () => {
-    console.log(`App listening on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`App listening on port ${port}`);
+// });
